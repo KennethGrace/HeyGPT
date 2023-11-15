@@ -1,0 +1,12 @@
+# Developer Environment
+.vscode
+.idea
+
+# Python
+venv
+__pycache__
+*.pyc
+
+# Secrets
+private
+cache
