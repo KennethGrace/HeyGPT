@@ -19,7 +19,8 @@ logger.setLevel(logging.DEBUG)
 API = os.getenv("HEY_API", "http://localhost:23450")
 USER = os.getenv("HEY_USER") or os.getenv("USER", "User")
 
-def main(message: str):
+
+def send_message(message: str):
     """Call the HeyGPT API to send a message to the chatbot."""
     try:
         # Pull the username from the environment
@@ -27,6 +28,30 @@ def main(message: str):
         print(f"{reply['message']}")
     except KeyboardInterrupt:
         print("\nGoodbye!")
+
+
+def main(message: str):
+    """Call the HeyGPT API to send a message to the chatbot."""
+    # If no message is provided, then we are in interactive mode.
+    while not message:
+        try:
+            if message:
+                send_message(message)
+            else:
+                message = input("You: ")
+                send_message(message)
+        except KeyboardInterrupt:
+            print("\nGoodbye!")
+            break
+        except Exception as e:
+            logger.error(e)
+            break
+        finally:
+            message = None
+    else:
+        # If a message is provided, then we are in single message mode.
+        # Send the message to the chatbot and print the response.
+        send_message(message)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Hey is an AI Personality Chatbot")

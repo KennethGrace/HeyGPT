@@ -12,7 +12,7 @@ import torch
 
 logger = logging.getLogger("uvicorn")
 
-MODEL = os.getenv("HEY_MODEL", "PygmalionAI/pygmalion-2-7b")
+MODEL = os.getenv("HEY_MODEL", "PygmalionAI/pygmalion-2-13b")
 
 try:
     Tokenizer = ts.AutoTokenizer.from_pretrained(MODEL)
